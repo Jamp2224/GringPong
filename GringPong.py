@@ -8,6 +8,10 @@ game = True
 clock = time.Clock()
 FPS = 60
 
+mixer.init()
+mixer.music.load("background_song.ogg")
+mixer.music.play(loops=-1)
+
 while game:
 
     for e in event.get():
