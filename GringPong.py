@@ -51,6 +51,13 @@ class Player2(GameSprite):
     def pais_origen (self):
         self.rect.x = self.spr_x
         self.rect.y = self.spr_y
+
+class ball(GameSprite):
+    def update(self):
+        self.rect.x += speed_x
+        self.rect.y += speed_y
+
+    
     
 window = display.set_mode((1280, 720))
 display.set_caption("Gring Pong - The Game")
@@ -62,6 +69,7 @@ grupo_sprite1_espana.add(sprite1_espana)
 grupo_sprite2_uk = sprite.Group()
 sprite2_uk = Player2("uk_pala.png",12, 1220, 350, 40, 175)
 grupo_sprite2_uk.add(sprite2_uk)
+sprite3_ball_paella = ball("paella.png", 12, 500, 350, 200, 200)
 
 game = True
 clock = time.Clock()
@@ -71,11 +79,18 @@ mixer.init()
 mixer.music.load("background_song.ogg")
 mixer.music.play(loops=-1)
 
+speed_x = 3
+speed_y = 3
+
 while game:
 
     for e in event.get():
         if e.type == QUIT:
             game = False
+
+    
+    if sprite3_ball_paella.rect.y > 700 or sprite3_ball_paella.rect.y < 0:
+        speed_y *= -1
 
     clock.tick(FPS)
     window.blit(background, (0, 0))
@@ -83,4 +98,6 @@ while game:
     grupo_sprite1_espana.update()
     grupo_sprite2_uk.draw(window)
     grupo_sprite2_uk.update()
+    sprite3_ball_paella.reset()
+    sprite3_ball_paella.update()
     display.update()
